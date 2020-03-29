@@ -1,0 +1,18 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <mat-grid-list cols="2" gutterSize="10px" fxFlex.lg="30%" fxFlex.xs="100%">
+    <mat-grid-tile>
+      <div fxLayout="column" fxFlex="100%" fxLayoutAlign="center center"
+          matRipple class="pointer mat-elevation-z4" [routerLink]="['/super/gerenciarusuarios']">
+        <i class="material-icons md-72">supervisor_account</i>
+        <h4>Gerenciar usuários</h4>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div fxLayout="column" fxFlex="100%" fxLayoutAlign="center center"
+        matRipple class="pointer mat-elevation-z4" [routerLink]="['/super/configuracao']">
+        <i class="material-icons md-72">settings</i>
+        <h4>Configurações</h4>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

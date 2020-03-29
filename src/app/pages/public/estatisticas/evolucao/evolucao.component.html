@@ -1,0 +1,73 @@
+<div class="row" style="margin-top:50px!important">
+  <form class="col s12 m12 l12" [formGroup]="formGraficoLevantamento" (ngSubmit)="carregarLevantamento()">
+    <div class="row valign-wrapper grey darken-2 white-text" style="padding: 1%">
+      <div class="col s1">
+        <b>Intervalo</b>
+      </div>
+      <select class="col s1" id="anoInferior"
+              formControlName="anoInferior"
+              materialize="material_select" [materializeSelectOptions]="anoList">
+        <option *ngFor="let option of anoList" [value]="option">{{option}}</option>
+      </select>
+      <div class="col s1 center-align">
+        <b>a</b>
+      </div>
+      <select class="col s1" formControlName="anoSuperior"
+              id="anoSuperior" materialize="material_select" [materializeSelectOptions]="anoList">
+        <option *ngFor="let option of anoList" [value]="option">{{option}}</option>
+      </select>
+      <div class="col s1">
+        <b>Nível</b>
+      </div>
+      <select id="nivel" formControlName="nivel"
+              class="col s2" materialize="material_select" [materializeSelectOptions]="anoList">
+        <option value="Todos">Todos</option>
+        <option *ngFor="let nivel of listarTodosOsNiveis()" [value]="nivel.name">
+          {{nivel.value}}
+        </option>
+      </select>
+      <div class="col s1">
+        <b>Curso</b>
+      </div>
+      <select id="curso"
+              formControlName="curso"
+              class="col s3" materialize="material_select" [materializeSelectOptions]="cursoList">
+        <option value="Todos">Todos</option>
+        <option *ngFor="let curso of cursoListFiltered" [value]="curso.id">{{curso.nome}}</option>
+      </select>
+      <button type="submit" class="waves-effect waves-light btn white black-text col s2 offset-s1">
+        Visualizar
+      </button>
+    </div>
+  </form>
+</div>
+<div class="row">
+  <div class="col s12 m12 l3 offset-l1">
+    <table class="bordered highlight centered">
+      <thead>
+      <tr>
+        <th>Ano</th>
+        <th>Trabalhos publicados</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let levantamento of levantamentoList">
+        <td>{{levantamento.ano}}</td>
+        <td><a><b>{{levantamento.quantidade}}</b></a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col s12 m12 l6" id="container-grafico">
+
+  </div>
+</div>
+<br>
+
+<p class="center-align">Outras opções de gráficos:</p>
+<div class="row center-align">
+  <a class="waves-effect waves-light btn-large blue darken-4 white-text" routerLink="/estatisticas/area" style="margin:6px"><i class="material-icons left">pie_chart</i>Áreas</a>
+  <a class="waves-effect waves-light btn-large blue darken-4 white-text" style="margin:6px"><i class="material-icons left">bar_chart</i>Curso</a>
+  <a class="waves-effect waves-light btn-large blue darken-4 white-text" style="margin:6px"><i class="material-icons left">show_chart</i>Orientador</a>
+</div>
+

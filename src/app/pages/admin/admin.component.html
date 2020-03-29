@@ -1,0 +1,63 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+    <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar>
+              <button mat-fab color="primary" style="font-size:14pt">{{textIcon}}</button>
+          </div>
+          <mat-card-title>{{user.nome}}</mat-card-title>
+          <mat-card-subtitle>{{user.login}}</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+
+    <mat-nav-list>
+        <a mat-list-item [routerLink]="['/admin/home']">
+          <mat-icon matListIcon>home</mat-icon>
+          Página inicial
+      </a>
+      <a mat-list-item [routerLink]="['/admin/deposito']">
+          <mat-icon matListIcon>save_alt</mat-icon>
+          Depósito
+      </a>
+      <a mat-list-item [routerLink]="['/admin/gerenciardocumentos']">
+        <mat-icon matListIcon>file_copy</mat-icon>
+        Gerenciar documentos
+      </a>
+      <a mat-list-item [routerLink]="['/admin/gerenciarcursos']">
+          <mat-icon matListIcon>list</mat-icon>
+          Cursos
+      </a>
+      <a mat-list-item [routerLink]="['/admin/orientadores']">
+        <mat-icon matListIcon>group</mat-icon>
+        Orientadores
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <app-icon-navigation></app-icon-navigation>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="fazerLoggout()">
+        <mat-icon>power_settings_new</mat-icon>
+      </button>
+    </mat-toolbar>
+
+
+    <div class="container">
+      <app-localizacao [breadCrumbs]="itensLocalizacao"></app-localizacao>
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

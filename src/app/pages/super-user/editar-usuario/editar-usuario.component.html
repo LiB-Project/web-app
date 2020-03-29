@@ -1,0 +1,43 @@
+<div fxLayout="row" fxLayoutAlign="center">
+  <h2>Editar usuário</h2>
+</div>
+<form [formGroup]="formGroupEditar" (ngSubmit)="atualizarUsuario()">
+<div fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-form-field fxFlex.lg="40%" fxFlex.xs="90%">
+        <input matInput placeholder="Nome" formControlName="nome" required>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-form-field fxFlex.lg="40%" fxFlex.xs="90%">
+        <input matInput placeholder="Login" formControlName="login" required>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-form-field fxFlex.lg="40%" fxFlex.xs="90%">
+        <input matInput placeholder="Senha" formControlName="senha"
+          type="password" name="password" required>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-form-field fxFlex.lg="40%" fxFlex.xs="90%">
+      <mat-label>Funções</mat-label>
+      <mat-select formControlName="roles" multiple>
+        <mat-option *ngFor="let role of roleList" [value]="role.value">{{role.view}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <button mat-raised-button type="submit" fxFlex.lg="40%" fxFlex.xs="90%"
+                      [disabled]="!formGroupEditar.valid" color="primary">Salvar</button>
+  </div>
+  <br>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <button mat-raised-button fxFlex.lg="40%" fxFlex.xs="90%"
+            [routerLink]="['/super/gerenciarusuarios']">Cancelar</button>
+  </div>
+</div>
+</form>
+
+
+

@@ -1,0 +1,13 @@
+.slider {
+  height: 160px!important;
+}
+
+.slides {
+  height: 130px !important;
+}
+.slides li .caption {
+  top: unset;
+  left: unset;
+  width: 100%;
+  padding: 2%;
+}

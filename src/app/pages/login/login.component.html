@@ -1,0 +1,34 @@
+<div class="row panel valign-wrapper">
+  <div class="col s4 offset-l4">
+    <div class="card">
+      <div class="card-content black-text">
+        <div class="row center">
+          <app-logomarca></app-logomarca>
+        </div>
+        <br>
+        <div class="row center-align">
+          <span class="card-title">Acesso ao sistema</span>
+        </div>
+        <form [formGroup]="formGroupLogin" (ngSubmit)="logar()">
+          <div class="row">
+            <div class="col s12">
+              <input formControlName="login" placeholder="Login" name="login" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <input placeholder="Senha" formControlName="password" type="password" name="password" required>
+            </div>
+          </div>
+          <div class="row">
+            <button class="waves-effect waves-light grey darken-4 btn btn-large col s8 offset-s2"
+                    [disabled]="!formGroupLogin.valid" type="submit">
+              <i class="material-icons left">double_arrow</i>Entrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

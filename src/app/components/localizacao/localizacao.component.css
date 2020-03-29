@@ -1,0 +1,10 @@
+.breadcrumb {
+  font-size: 11pt;
+}
+.breadcrumb:before{
+  color: black;
+  vertical-align: middle;
+}
+.row{
+  border-radius: 10px;
+}

@@ -1,0 +1,27 @@
+<div fxLayout="column" fxFlex="80%" fxFlexOffset="10%" fxLayoutAlign="start">
+  <div fxLayout="row" fxLayoutAlign="center">
+      <h4>Gerenciamento de usuários</h4>
+  </div>
+  <a mat-mini-fab [routerLink]="['/super/cadastrousuario']" color="primary">
+      <mat-icon aria-label="Cadastrar">add</mat-icon>
+  </a>
+  <mat-paginator [length]="pageEvent.length"
+                [pageSize]="pageEvent.pageSize"
+                (page)="setEvent($event)">
+  </mat-paginator>
+  <mat-list>
+    <mat-list-item *ngFor="let usuario of usuarios">
+      <mat-icon class="material-icons md-48" mat-list-icon>account_circle</mat-icon>
+      <h4 mat-line>Nome: {{usuario.nome}}</h4><br>
+      <p mat-line>Login: {{usuario.login}}</p><br>
+      <p mat-line>Funções: {{exibirRolesFormatado(usuario.roles)}}</p><br>
+      <button mat-icon-button [routerLink]="['/super/editarusuario', usuario.id]">
+          <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="deletar(usuario.id)">
+          <mat-icon>delete</mat-icon>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</div>

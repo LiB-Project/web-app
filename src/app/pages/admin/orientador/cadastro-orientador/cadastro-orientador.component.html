@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Novo orientador</h2>
+<form [formGroup]="formGroupCadastro" (ngSubmit)="cadastrar()">
+  <mat-dialog-content>
+      <div fxLayout="column" fxLayoutAlign="center">
+          <div fxLayout="row" fxLayoutAlign="center">
+              <i class="material-icons md-72">account_circle</i>
+          </div>
+            <mat-form-field>
+              <input matInput placeholder="Matrícula" formControlName="matricula" required>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Nome" formControlName="nome" required>
+            </mat-form-field>
+      </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+      <button type="submit" [disabled]="!formGroupCadastro.valid"
+       mat-raised-button color="primary">Cadastrar</button>
+  </mat-dialog-actions>
+</form>

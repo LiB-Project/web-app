@@ -1,0 +1,100 @@
+<div fxLayout="column" fxFlex="80%" fxFlexOffset="10%" fxLayoutAlign="start">
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h4>Editar documento</h4>
+  </div>
+  <form [formGroup]="formEdit" (ngSubmit)="atualizarDocumento()">
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex="50%">
+        <mat-form-field>
+          <input matInput placeholder="Título" formControlName="titulo">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Autor" formControlName="autor">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Matrícula do autor" formControlName="matricula">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" placeholder="Curso" matInput formControlName="curso" [matAutocomplete]="completeCurso">
+          <mat-autocomplete #completeCurso="matAutocomplete" [displayWith]="displayCurso">
+            <mat-option *ngFor="let curso of filteredCursos | async" [value]="curso">
+              {{curso.nome}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" placeholder="Orientador" matInput formControlName="orientador" [matAutocomplete]="completeOrientador">
+          <mat-autocomplete #completeOrientador="matAutocomplete" [displayWith]="displayOrientador">
+            <mat-option *ngFor="let orientador of filteredOrientadores | async" [value]="orientador">
+              {{orientador.nome}} ({{orientador.matricula}})
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" placeholder="Coorientador" matInput formControlName="coorientador" [matAutocomplete]="completeCoorientador">
+          <mat-autocomplete #completeCoorientador="matAutocomplete" [displayWith]="displayOrientador">
+            <mat-option *ngFor="let orientador of filteredCoorientadores | async" [value]="orientador">
+              {{orientador.nome}} ({{orientador.matricula}})
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxFlex="48%" fxFlexOffset="2%">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker"
+                 formControlName="dataApresentacao" placeholder="Data de apresentação">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div fxLayout="row">
+          <mat-form-field fxFlex="90%">
+            <input type="text" placeholder="Adicione subáreas" matInput [formControl]="controlSubAreaInput"
+                   [matAutocomplete]="completeSubAreas">
+            <mat-autocomplete #completeSubAreas="matAutocomplete" [displayWith]="displaySubArea">
+              <mat-option *ngFor="let subArea of filteredSubAreas | async" [value]="subArea">
+                {{subArea.nome}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <div fxFlex="10%">
+            <button mat-mini-fab type="button" (click)="addSubArea()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+        <mat-chip-list #listSubAreas aria-label="Subáreas adicionadas">
+          <mat-chip *ngFor="let sub of subAreasAdded"
+                    [removable]="true" (removed)="removerSubArea(sub)">
+            {{sub.nome}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+        <br>
+        <mat-form-field>
+          <mat-chip-list #listPalavrasChave>
+            <mat-chip *ngFor="let chave of palavrasChave" [removable]="true"
+                      (removed)="remove(chave)">
+              {{chave}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Edite as palavras-chave"
+                   [matChipInputFor]="listPalavrasChave"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="true"
+                   (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="ISBN(opcional)" formControlName="isbn">
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center">
+      <button mat-raised-button type="submit" fxFlex="30%"
+              [disabled]="!formEdit.valid" color="primary">Atualizar</button>
+      <button mat-raised-button fxFlex="30%" fxFlexOffset="2%"
+              [routerLink]="['/admin/gerenciardocumentos']">Cancelar</button>
+    </div>
+  </form>
+</div>

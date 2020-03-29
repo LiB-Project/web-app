@@ -1,0 +1,91 @@
+
+    <div fxLayout="row" fxLayoutAlign="center">
+        <h4>Configurações</h4>
+    </div>
+    <form [formGroup]="formConfiguracao" (ngSubmit)="atualizar()">
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="center">
+            <mat-form-field fxFlex="100%">
+              <input matInput placeholder="Título do sistema" formControlName="tituloSistema" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center">
+            <mat-form-field fxFlex="100%">
+              <input matInput placeholder="Nome da instituição" formControlName="nomeInstituicao" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center">
+            <mat-form-field fxFlex="68%" fxFlex.xs="100%">
+              <input matInput placeholder="Sigla da instituição" formControlName="siglaInstituicao" required>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="30%" fxFlexOffset="2%" fxFlex.xs="100%">
+              <input matInput placeholder="Nuvem de palavras (total)"
+                type="number"
+                formControlName="quantidadeNuvemDePalavras" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="column" fxFlexOffset="1%">
+            <div fxLayout="row" fxLayoutAlign="center">
+              <mat-form-field appearance="outline" fxFlex="100%" fxFlex.xs="90%">
+                <ngx-mat-file-input formControlName="iconeFileInput" [accept]="'.png'"
+                  valuePlaceholder="Ícone do sistema"
+                  placeholder="Ícone do sistema" ></ngx-mat-file-input>
+                <mat-icon matSuffix>cloud_upload</mat-icon>
+              </mat-form-field>
+            </div>
+              <div fxLayout="row" fxLayoutAlign="center">
+                <img height="70" [src]="exibirVisualizacaoDeIcone()"/>
+              </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="center">
+              <mat-form-field appearance="outline" fxFlex="100%" fxFlex.xs="90%">
+                <ngx-mat-file-input formControlName="logomarcaFileInput" [accept]="'.png'"
+                  valuePlaceholder="Logomarca do sistema"
+                  placeholder="Logomarca do sistema" ></ngx-mat-file-input>
+                <mat-icon matSuffix>cloud_upload</mat-icon>
+              </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center">
+            <img height="100" [src]="exibirVisualizacaoDeLogomarca()"/>
+          </div>
+        </div>
+        <div fxLayout="column" fxFlexOffset="2%">
+          <div fxLayout="row" fxLayoutAlign="center">
+              <mat-form-field appearance="outline" fxFlex="100%" fxFlex.xs="90%">
+                <ngx-mat-file-input formControlName="faviconFileInput" [accept]="'.ico'"
+                  valuePlaceholder="Favicon do sistema"
+                  placeholder="Favicon do sistema" ></ngx-mat-file-input>
+                <mat-icon matSuffix>cloud_upload</mat-icon>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center">
+              <img height="50" [src]="exibirVisualizacaoDeFavicon()"/>
+            </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div fxLayout="row" fxLayoutAlign="center">
+        <h4>Página sobre</h4>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="90%" style="border-style:solid;border-width:1px;">
+          <angular-editor formControlName="htmlPaginaSobre"></angular-editor>
+        </div>
+      </div>
+
+      <br>
+
+      <div fxLayout="row" fxLayoutAlign="center">
+        <button mat-raised-button type="submit" fxFlex.lg="50%" fxFlex.xs="90%"
+          [disabled]="!formConfiguracao.valid" color="primary">Atualizar</button>
+      </div>
+      <br>
+    </form>

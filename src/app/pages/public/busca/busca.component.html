@@ -1,0 +1,198 @@
+<div class="row valign-wrapper">
+  <div class="col s12 m12 l6">
+    <div class="row valign-wrapper">
+      <div class="col s3">
+        <img class="responsive-img" [src]="iconBase64"/>
+      </div>
+      <div class="col s9">
+        <h6 class="flow-text" style="font-weight: bold">{{tituloSistema}}</h6>
+        <h6 class="flow-text" style="font-weight: bold">{{tituloInstituicao}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="col s6 right">
+    <h6 class="flow-text">Publicações recentes</h6>
+    <div *ngIf="recenteList.length > 0">
+    <div class="slider" materialize="slider">
+      <ul class="slides">
+        <li *ngFor="let recente of recenteList">
+          <div class="caption center-align">
+            <h5 style="font-size:13pt">{{recente.titulo}}</h5>
+            <a class="waves-effect waves-light btn grey darken-4" [routerLink]="['/document', recente.id]">
+              <i class="material-icons left">open_in_browser</i>Abrir
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    </div>
+
+  </div>
+</div>
+<br>
+
+<div class="row card blue darken-4 white-text" style="margin-bottom: unset">
+  <div class="col s12 m12 l12" style="margin-top:30px!important;">
+    <form [formGroup]="formGroupSearch" (ngSubmit)="search()">
+      <div class="row valign-wrapper" style="margin-bottom: unset">
+        <div class="input-field col s12 m12 l3 offset-l1">
+          <select id="tipoBusca" formControlName="tipoBusca" materialize="material_select" [materializeSelectOptions]="tiposDeBusca">
+            <option *ngFor="let option of tiposDeBusca" [value]="option.name">{{option.value}}</option>
+          </select>
+          <label class="white-text" for="tipoBusca">Campo de busca</label>
+        </div>
+        <div class="input-field col s12 m12 l8 white-text">
+          <input formControlName="termoBusca"
+                 id="termo" type="text">
+          <label class="white-text" for="termo">Termo da busca</label>
+        </div>
+        <div class="col s12 m12 l2">
+          <button type="submit" class="waves-effect btn white black-text">
+            <i class="material-icons">search</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal" materialize="modal" style="width: 40% !important ; max-height: 80%"
+     [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Busca avançada</h4>
+    <p>Defina os campos e a relevância para realizar uma busca mais aprofundada nos documentos</p>
+    <form (ngSubmit)="addRelevance()" [formGroup]="formAddRelevance">
+      <div class="row valign-wrapper">
+        <div class="input-field col s12 m12 l6">
+          <select id="campoBusca" materialize="material_select" [materializeSelectOptions]="tiposDeBusca"
+                  formControlName="field">
+            <option *ngFor="let option of tiposDeBuscaFiltrados()" [value]="option.name">
+              {{option.value}}
+            </option>
+          </select>
+          <label for="campoBusca"><b>Campo de busca</b></label>
+        </div>
+        <div class="col s12 m12 l4">
+          <p class="range-field">
+            <label for="relevancia"><b>Relevância</b></label>
+            <input formControlName="value" type="range" id="relevancia" min="0" max="100" />
+          </p>
+        </div>
+        <div class="col s12 m12 l2">
+          <button type="submit" class="btn-floating btn-large waves-effect waves-light blue darken-4 white-text">
+            <i class="material-icons">add</i>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="row center-align">
+      <p style="font-size: 14pt" *ngIf="queryVO.queryRelevanceList.length > 0">Definições da busca</p>
+      <table class="striped" *ngIf="queryVO.queryRelevanceList.length > 0">
+        <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Relevância</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let item of queryVO.queryRelevanceList">
+          <td>{{item.field}}</td>
+          <td>{{item.value}}%</td>
+          <td>
+            <a (click)="removerRelevance(item.field)" class="secondary-content">
+              <i class="material-icons">delete</i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <form [formGroup]="formGroupSearchQuery" (ngSubmit)="searchQuery()">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Placeholder" id="first_name" formControlName="searchValue" type="text" class="validate" fo>
+          <label for="first_name">Busca</label>
+        </div>
+      </div>
+      <div class="row center-align">
+        <button class="waves-effect waves-light btn grey darken-4"
+                [disabled]="!queryVO.queryRelevanceList.length > 0 || !formGroupSearchQuery.valid">
+          <i class="material-icons left">search</i>Realizar busca
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="fecharModal()">Cancelar</a>
+  </div>
+</div>
+
+<div class="row center-align">
+  <a class="waves-effect waves-light btn btn-flat blue darken-4 white-text" (click)="abrirModalBusca()">
+    <i class="material-icons left">blur_on</i>
+    Busca avançada
+  </a>
+</div>
+<div class="row">
+  <div class="col s12 m3 l3">
+    <div class="row">
+      <div class="col s12">
+        <div class="card grey lighten-4">
+          <div class="card-content">
+            <div class="row valign-wrapper">
+              <span class="card-title">
+                <i class="tiny material-icons">filter_list</i>
+                Filtro
+              </span>
+            </div>
+            <span *ngIf="results.length == 0">Nada para filtrar no momento!</span>
+            <div class="row">
+              <span *ngIf="results.length > 0">Ano</span>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <ng5-slider [(value)]="minValue" *ngIf="results.length > 0"
+                            [(highValue)]="maxValue" [options]="options"></ng5-slider>
+              </div>
+            </div>
+            <div class="row" *ngIf="results.length > 0">
+              <div class="input-field col s12">
+                <select id="filtroCurso" materialize="material_select" [materializeSelectOptions]="tiposDeBusca"
+                        [formControl]="cursoFiltragem">
+                  <option [value]="'Todos'" selected="true">Todos</option>
+                  <option *ngFor="let curso of cursosParaFiltrar" [value]="curso.id">
+                    {{curso.nome}}
+                  </option>
+                </select>
+                <label for="filtroCurso">Curso</label>
+              </div>
+            </div>
+            <div class="row">
+              <a *ngIf="results.length > 0"
+                 (click)="aplicarFiltrar()" class="waves-effect waves-light btn col s12">Filtrar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m12 l9">
+    <div class="row">
+      <mat-paginator [length]="pageEvent.length"
+                     [pageSize]="pageEvent.pageSize"
+                     (page)="setEvent($event)">
+      </mat-paginator>
+    </div>
+    <br/>
+    <!-- results -->
+    <div class="row">
+        <document-result *ngFor="let doc of filteredResults"
+                         [documento]="doc"></document-result>
+    </div>
+  </div>
+</div>
+
+
+

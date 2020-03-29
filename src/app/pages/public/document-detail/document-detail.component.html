@@ -1,0 +1,45 @@
+<div fxLayout="row" fxFlex="88%" fxFlexOffset="6%">
+    <div fxLayout="column" fxFlex="57%">
+        <h3>{{document.titulo}}</h3>
+        <p>Autor: {{document.autor.nome}}</p>
+    </div>
+    <div fxLayout="column" fxFlex="37%" fxFlexOffset="2%">
+        <mat-card>
+          <mat-card-header>
+              <div mat-card-avatar>
+                <mat-icon>cloud</mat-icon>
+              </div>
+              <mat-card-title>Nuvem de palavras</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              <cloud-words *ngIf="frequency" [data]="frequency.mostCommons"></cloud-words>
+          </mat-card-content>
+          <mat-card-actions align="end">
+              <a mat-stroked-button routerLink=".">
+                Explorar
+                <mat-icon>navigate_next</mat-icon>
+              </a>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Trabalhos semelhantes</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+              <mat-list-item *ngFor="let recomendacao of recomendacoesList" style="margin-bottom: 10px;">
+                <mat-icon matListIcon>assignment</mat-icon>
+                <span style="font-size:11pt">{{recomendacao.titulo}}</span>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+          <mat-card-actions align="end">
+              <a mat-stroked-button routerLink=".">
+                Todos
+                <mat-icon>navigate_next</mat-icon>
+              </a>
+          </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

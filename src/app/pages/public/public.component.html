@@ -1,0 +1,28 @@
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper grey darken-4">
+      <a materialize="sideNav" (click)='abrirSideNav()' data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a routerLink="/" class="brand-logo"><app-icon-navigation></app-icon-navigation></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a routerLink="/"><i class="material-icons left">home</i>Página inicial</a></li>
+        <li><a routerLink="/estatisticas"><i class="material-icons left">timeline</i>Estatísticas</a></li>
+        <li><a routerLink="/sobre"><i class="material-icons left">info</i>Sobre</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<ul class="side-nav" id="mobile-demo">
+  <li><a routerLink="/" (click)="fecharSideNav()"><i class="material-icons left">home</i>Página inicial</a></li>
+  <li><a routerLink="/estatisticas" (click)="fecharSideNav()"><i class="material-icons left">timeline</i>Estatísticas</a></li>
+  <li><a routerLink="/sobre" (click)="fecharSideNav()"><i class="material-icons left">info</i>Sobre</a></li>
+</ul>
+
+
+<br/><br/>
+<div class="container">
+  <app-localizacao [breadCrumbs]="itensLocalizacao"></app-localizacao>
+  <router-outlet></router-outlet>
+</div>
+
+

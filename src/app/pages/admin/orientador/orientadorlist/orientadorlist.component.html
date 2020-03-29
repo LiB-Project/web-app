@@ -1,0 +1,26 @@
+<div fxLayout="column" fxFlex="80%" fxFlexOffset="10%" fxLayoutAlign="start">
+  <div fxLayout="row" fxLayoutAlign="center">
+      <h4>Gerenciamento de orientadores</h4>
+  </div>
+  <a mat-mini-fab (click)="abrirCadastro()" color="primary">
+      <mat-icon aria-label="Cadastrar">add</mat-icon>
+  </a>
+  <mat-paginator [length]="pageEvent.length"
+                [pageSize]="pageEvent.pageSize"
+                (page)="setEvent($event)">
+  </mat-paginator>
+  <mat-list>
+    <mat-list-item *ngFor="let orientador of orientadores">
+      <mat-icon class="material-icons md-48" mat-list-icon>account_circle</mat-icon>
+      <h4 mat-line>{{orientador.nome}}</h4>
+      <p mat-line> {{orientador.matricula}}</p>
+      <button mat-icon-button (click)="abrirEdicao(orientador)">
+          <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="deletar(orientador.id)">
+          <mat-icon>delete</mat-icon>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</div>

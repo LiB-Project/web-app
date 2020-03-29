@@ -1,0 +1,64 @@
+<div fxLayout="column" fxFlex="80%" fxFlexOffset="10%" fxLayoutAlign="start">
+  <div fxLayout="row" fxLayoutAlign="center">
+      <h4>Gerenciar cursos</h4>
+  </div>
+  <div fxLayout="row">
+    <button class="extended-fab-button" mat-mini-fab color="primary"
+            [routerLink]="['/admin/cadastrocurso']">
+        <mat-icon>add</mat-icon>
+        <span class="extended-fab-button__text">Cadastrar novo</span>
+    </button>
+  </div>
+  <br/>
+    <mat-paginator [length]="pageEvent.length"
+                [pageSize]="pageEvent.pageSize"
+                (page)="setEvent($event)">
+    </mat-paginator>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let curso of cursos" (opened)="abreCurso(curso)">
+
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{curso.nome}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-container *ngIf="cursoAberto">
+              <form [formGroup]="formGroupEdit" (ngSubmit)="atualizarCurso()" fxLayout="column">
+                  <mat-form-field fxFlex="70%">
+                      <input matInput placeholder="Nome" formControlName="nome" required>
+                  </mat-form-field>
+                  <div fxLayout="row">
+                      <mat-form-field fxFlex="38%">
+                          <input matInput placeholder="Sigla" formControlName="sigla" required>
+                      </mat-form-field>
+                      <mat-form-field fxFlex="35%" fxFlexOffset="2%">
+                          <mat-label>Grande área de conhecimento</mat-label>
+                          <mat-select formControlName="codigoGrandeArea" required>
+                              <mat-option *ngFor="let grandeArea of grandesAreas"
+                                  [value]="grandeArea.codigo">
+                                  {{grandeArea.nome}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <mat-form-field fxFlex="27%" fxFlexOffset="2%">
+                          <mat-label>Nível</mat-label>
+                          <mat-select formControlName="nivel" required>
+                              <mat-option *ngFor="let nivel of todosOsNiveis" [value]="nivel.name">
+                                {{nivel.value}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </div>
+                  <mat-form-field>
+                      <textarea matInput placeholder="Descrição" formControlName="descricao" required></textarea>
+                  </mat-form-field>
+                  <mat-action-row>
+                    <button type="submit" mat-button [disabled]="!formGroupEdit.valid" color="primary">Atualizar</button>
+                    <button mat-button color="warn" (click)="deletarCurso()">Deletar</button>
+                  </mat-action-row>
+                </form>
+            </ng-container>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

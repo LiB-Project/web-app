@@ -1,0 +1,16 @@
+<div class="col s12">
+  <div class="card horizontal">
+    <div class="card-stacked">
+      <div class="card-content">
+        <div class="row valign-wrapper">
+          <i class="small material-icons">chrome_reader_mode</i>
+          <span class="flow-text" style="font-size:14pt">{{documento.titulo}}</span>
+        </div>
+      </div>
+      <div class="card-action right">
+        <a class="black-text"><b>Autor:</b> {{documento.autor.nome}}</a>
+        <a class="right black-text" [routerLink]="['/document', documento.id]"><i class="material-icons">open_in_browser</i>Abrir</a>
+      </div>
+    </div>
+  </div>
+</div>

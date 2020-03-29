@@ -1,0 +1,21 @@
+<div class="row" style="margin-top:50px!important">
+  <form class="col s12 m12 l12" [formGroup]="formGraficoArea" (ngSubmit)="carregarDados()">
+    <div class="row valign-wrapper grey darken-2 white-text" style="padding: 1%">
+      <div class="col s2">
+        <b>Grande área de conhecimento</b>
+      </div>
+      <select class="col s5" id="grandeArea"
+              formControlName="grandeAreaId"
+              materialize="material_select" [materializeSelectOptions]="grandeAreaList">
+        <option [value]="null">Todas</option>
+        <option *ngFor="let option of grandeAreaList" [value]="option.codigo">{{option.nome}}</option>
+      </select>
+      <button type="submit" class="waves-effect waves-light btn white black-text col s2 offset-s3">
+        Visualizar
+      </button>
+    </div>
+  </form>
+  <div class="col s12" id="container-grafico">
+
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<span style="font-size: 8pt">Você está aqui:</span>
+<div class="row grey lighten-1" style="height:35px">
+  <div class="col s12 valign-wrapper">
+    <a [routerLink]="item.url" class="breadcrumb black-text" *ngFor="let item of breadCrumbs">
+      {{item.label}}
+    </a>
+  </div>
+</div>

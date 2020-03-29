@@ -1,0 +1,45 @@
+@import '~ngx-toastr/toastr';
+
+body {
+    overflow-x: hidden;
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+    height: 100%;
+    background-color: #e0e0e0;
+}
+
+.background-default {
+  background-color: #e0e0e0;
+}
+.mat-paginator {
+  background-color: #e0e0e0;
+}
+
+html{
+    height: 100%;
+}
+.background-content{
+    background-color: #e0e0e0;
+}
+
+.full-width{
+    width:100%;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-72 { font-size: 72px; }
+
+.mat-form-field.no-padding > .mat-form-field-wrapper {
+    margin-bottom: -1.25em;
+}
+
+.slider .indicator-item {
+  background-color: grey!important;
+}
+
+.slider .indicator-item.active {
+  background-color: black!important;
+}
+

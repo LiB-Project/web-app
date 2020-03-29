@@ -1,0 +1,26 @@
+<div fxLayout="column" fxFlex="80%" fxFlexOffset="10%" fxLayoutAlign="start">
+  <div fxLayout="row" fxLayoutAlign="center">
+      <h4>Gerenciar documentos</h4>
+  </div>
+
+  <mat-paginator [length]="pageEvent.length"
+              [pageSize]="pageEvent.pageSize"
+              (page)="setEvent($event)">
+  </mat-paginator>
+  <mat-list>
+    <mat-card>
+      <mat-list-item *ngFor="let doc of documentos">
+        <mat-icon mat-list-icon>note</mat-icon>
+        <h4 mat-line>{{doc.titulo}}</h4>
+        <p mat-line> Autor: {{doc.autor.nome}} </p>
+
+        <a mat-icon-button [routerLink]="['/admin/editardocumento', doc.id]">
+          <mat-icon>edit</mat-icon>
+        </a>
+        <button mat-icon-button (click)="deletar(doc.id)">
+            <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-card>
+  </mat-list>
+</div>
