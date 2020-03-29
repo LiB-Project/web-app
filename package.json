@@ -29,7 +29,7 @@
     "enum-values": "^1.2.1",
     "hammerjs": "^2.0.8",
     "highcharts": "^7.2.0",
-    "jquery": "^2.2.4",
+    "jquery": "^3.4.0",
     "materialize-css": "^0.100.2",
     "moment": "^2.24.0",
     "ng5-slider": "^1.2.4",
