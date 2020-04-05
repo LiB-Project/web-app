@@ -41,4 +41,8 @@ export class ConfiguracaoService {
   recuperarIcone(): Observable<HttpResponse<string>> {
     return this.http.get(`${this.URL_RESOURCE}/iconeBase64`, {observe: 'response', responseType: 'text'});
   }
+
+  restaurar(): Observable<HttpResponse<null>> {
+    return this.http.post<null>(`${this.URL_RESOURCE}/restaurar`, { observe: 'response' });
+  }
 }

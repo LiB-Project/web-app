@@ -130,4 +130,10 @@ export class ConfiguracaoComponent implements OnInit {
     );
   }
 
+  restaurarConfiguracao() {
+    this.subscriptions.push(
+      this.configuracaoService.restaurar()
+        .subscribe()
+    );
+  }
 }
