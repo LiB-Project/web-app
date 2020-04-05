@@ -73,7 +73,7 @@ export class OrientadorListComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(EditOrientadorComponent, {
       height: '390px',
       width: '350px',
-      data: { orientador: `${orientador}` },
+      data: { orientador: `${JSON.stringify(orientador)}` },
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
