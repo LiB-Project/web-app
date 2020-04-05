@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ElementRef} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Documento } from 'src/app/core/model/documento.model';
 import { DocumentoService } from 'src/app/core/services/documento.service';
@@ -7,6 +7,7 @@ import { AnalysisService } from 'src/app/core/services/analysis.service';
 import { Frequency } from 'src/app/core/model/frequency.model';
 import { RecomendacaoService } from 'src/app/core/services/recomendacao.service';
 import { Recomendacao } from 'src/app/core/model/recomendacao.model';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'document-detail',
@@ -19,14 +20,19 @@ export class DocumentDetailComponent implements OnInit, OnDestroy{
   frequency: Frequency;
   private subscriptions: Subscription[] = [];
   recomendacoesList: Recomendacao[] = [];
+  slideConfig = {slidesToShow: 3, slidesToScroll: 4};
 
 
   constructor(private route: ActivatedRoute,
+              private element: ElementRef,
+              private sanitizer: DomSanitizer,
               private documentoService: DocumentoService,
               private recomendacaoService: RecomendacaoService,
-              private analysisService: AnalysisService) { }
+              private analysisService: AnalysisService) {
+  }
 
   ngOnInit() {
+    // ($(this.element.nativeElement) as any).find('.collapsible').collapsible();
     this.subscriptions.push(this.route.paramMap.subscribe(params => {
       this.subscriptions.push(
         this.documentoService.getById(params.get('documentId')).subscribe(
@@ -65,6 +71,10 @@ export class DocumentDetailComponent implements OnInit, OnDestroy{
         }
       )
     );
+  }
+
+  getFilePdf(file: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl('data:application/pdf;base64, ' + file);
   }
 
 

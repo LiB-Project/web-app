@@ -1,45 +1,104 @@
-<div fxLayout="row" fxFlex="88%" fxFlexOffset="6%">
-    <div fxLayout="column" fxFlex="57%">
-        <h3>{{document.titulo}}</h3>
-        <p>Autor: {{document.autor.nome}}</p>
+<div class="row">
+  <div class="col s12 m12 l7">
+    <h5>{{document.titulo}}</h5>
+    <br>
+    <div class="row">
+      <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header"><i class="material-icons">format_align_justify</i>Resumo</div>
+          <div class="collapsible-body">
+            <p class="flow-text">
+              {{document.resumo}}
+            </p>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div fxLayout="column" fxFlex="37%" fxFlexOffset="2%">
-        <mat-card>
-          <mat-card-header>
-              <div mat-card-avatar>
-                <mat-icon>cloud</mat-icon>
-              </div>
-              <mat-card-title>Nuvem de palavras</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-              <cloud-words *ngIf="frequency" [data]="frequency.mostCommons"></cloud-words>
-          </mat-card-content>
-          <mat-card-actions align="end">
-              <a mat-stroked-button routerLink=".">
-                Explorar
-                <mat-icon>navigate_next</mat-icon>
-              </a>
-          </mat-card-actions>
-        </mat-card>
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Trabalhos semelhantes</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-list>
-              <mat-list-item *ngFor="let recomendacao of recomendacoesList" style="margin-bottom: 10px;">
-                <mat-icon matListIcon>assignment</mat-icon>
-                <span style="font-size:11pt">{{recomendacao.titulo}}</span>
-                <mat-divider></mat-divider>
-              </mat-list-item>
-            </mat-list>
-          </mat-card-content>
-          <mat-card-actions align="end">
-              <a mat-stroked-button routerLink=".">
-                Todos
-                <mat-icon>navigate_next</mat-icon>
-              </a>
-          </mat-card-actions>
-        </mat-card>
+    <div class="row">
+      <ul class="collection">
+        <li class="collection-item">
+          <i class="medium material-icons left">person_outline</i>
+          <span class="title text-accent-1">Autor:</span>
+          <p>{{document.autor.nome}}</p>
+        </li>
+        <li class="collection-item">
+          <i class="medium material-icons left">person_outline</i>
+          <span class="title">Orientador:</span>
+          <p>{{document.orientador.nome}}</p>
+        </li>
+        <li class="collection-item" *ngIf="document.coorientador != null">
+          <i class="medium material-icons left">person_outline</i>
+          <span class="title">Coorientador:</span>
+          <p>{{document.coorientador.nome}}</p>
+        </li>
+      </ul>
     </div>
+
+    <a class="waves-effect waves-light btn blue darken-4" target="_blank"
+       download="{{document.titulo + '.pdf'}}"
+       [href]="getFilePdf(document.arquivoBase64)">
+      <i class="material-icons left">visibility</i>Clique aqui para abrir o documento
+    </a>
+  </div>
+  <div class="col s12 m12 l4 offset-l1">
+    <mat-card>
+      <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon>notes</mat-icon>
+          </div>
+          <mat-card-title>Ocorrência de termos</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <cloud-words *ngIf="frequency" [data]="frequency.mostCommons"></cloud-words>
+      </mat-card-content>
+      <mat-card-actions align="end">
+<!--          <a mat-stroked-button routerLink=".">-->
+<!--            Explorar-->
+<!--            <mat-icon>navigate_next</mat-icon>-->
+<!--          </a>-->
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
+<footer class="page-footer blue-grey lighten-4">
+  <div class="container">
+  <div class="row">
+    <h5 class="black-text">Trabalhos relacionados</h5>
+    <p class="black-text">Encontre abaixo um conjunto de documentos similares a este.</p>
+
+    <div class="row center-align">
+      <a class="btn-floating waves-effect waves-light blue darken-4"
+         (click)="slickModal.slickPrev()"
+         style="margin: 10px">
+        <i class="material-icons">arrow_back_ios</i>
+      </a>
+      <a class="btn-floating waves-effect waves-light blue darken-4"
+         (click)="slickModal.slickNext()"
+         style="margin: 10px">
+        <i class="material-icons">arrow_forward_ios</i>
+      </a>
+    </div>
+    <ngx-slick-carousel class="carousel" style="height: 200px"
+                        #slickModal="slick-carousel"
+                        [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let recomendacao of recomendacoesList" class="slide">
+          <div class="col s12 m6 l12">
+            <div class="card hoverable">
+              <a class="btn-floating halfway-fab waves-effect waves-light grey darken-3"
+                [routerLink]="'/document/'+recomendacao.id">
+                <i class="material-icons">launch</i>
+              </a>
+              <div class="card-content">
+                <p class="black-text">
+                  {{recomendacao.titulo | slice:0:70 }}
+                  {{recomendacao.titulo.length > 70 ? '...' : ''}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </ngx-slick-carousel>
+
+  </div>
+  </div>
+</footer>

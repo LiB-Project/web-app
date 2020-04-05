@@ -13,6 +13,7 @@ import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from 'ngx-ui-loader';
 import {MaterializeModule} from 'angular2-materialize';
+import {SlickCarouselModule} from 'ngx-slick-carousel';
 
 @NgModule({
    declarations: [
@@ -27,7 +28,8 @@ import {MaterializeModule} from 'angular2-materialize';
         NgxUiLoaderModule,
         NgxUiLoaderHttpModule,
         ComponentsModule,
-        MaterializeModule
+        MaterializeModule,
+        SlickCarouselModule
     ],
    providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

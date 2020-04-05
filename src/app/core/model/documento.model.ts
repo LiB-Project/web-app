@@ -6,6 +6,7 @@ export class Documento {
     constructor(
         public id?: string,
         public titulo?: string,
+        public resumo?: string,
         public autor?: Autor,
         public curso?: Curso,
         public orientador?: Orientador,
@@ -14,6 +15,8 @@ export class Documento {
         public dataPublicacao?: Date,
         public subAreas?: SubArea[],
         public palavrasChave?: string[],
-        public isbn?: string
+        public isbn?: string,
+        public arquivo?: File,
+        public arquivoBase64?: string
     ) {}
 }

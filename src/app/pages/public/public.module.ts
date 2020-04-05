@@ -12,6 +12,7 @@ import { SobreComponent } from './sobre/sobre.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 import {MaterializeModule} from 'angular2-materialize';
 import {FormsModule} from '@angular/forms';
+import {SlickCarouselModule} from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [
@@ -23,14 +24,15 @@ import {FormsModule} from '@angular/forms';
     CloudWordsComponent,
     SobreComponent
   ],
-  imports: [
-    CommonModule,
-    UiModule,
-    ComponentsModule,
-    PublicRoutingModule,
-    MaterializeModule,
-    FormsModule,
-  ],
+    imports: [
+        CommonModule,
+        UiModule,
+        ComponentsModule,
+        PublicRoutingModule,
+        MaterializeModule,
+        FormsModule,
+        SlickCarouselModule,
+    ],
   entryComponents: [PublicComponent]
 })
 export class PublicModule { }

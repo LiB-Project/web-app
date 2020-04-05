@@ -35,10 +35,12 @@
     "ng5-slider": "^1.2.4",
     "ngx-alerts": "^4.0.0",
     "ngx-material-file-input": "^2.0.0",
+    "ngx-slick-carousel": "^0.5.0",
     "ngx-toastr": "^11.2.0",
     "ngx-ui-loader": "^8.0.0",
     "ngx-webstorage": "^4.0.1",
     "rxjs": "^6.5.3",
+    "slick-carousel": "^1.8.1",
     "tslib": "^1.10.0",
     "zone.js": "^0.9.1"
   },
