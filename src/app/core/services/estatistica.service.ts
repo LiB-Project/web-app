@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {DocumentoAcessos} from '../value/documento-acessos.value';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,15 @@ export class EstatisticaService {
     return this.http.get<any[]>(`${environment.apiBase + environment.estatisticaPath}/area`,
       { observe: 'response', params: httpParams});
 
+  }
+
+  carregarQuantidadeAcessos(): Observable<HttpResponse<DocumentoAcessos[]>> {
+    return this.http.get<DocumentoAcessos[]>(`${environment.apiBase + environment.estatisticaPath}/acessos`,
+      { observe: 'response' });
+  }
+
+  countAcesso(id: string): Observable<HttpResponse<null>> {
+    return this.http.post<null>(`${environment.apiBase + environment.estatisticaPath}/acesso/${id}`,
+      { observe: 'response'});
   }
 }

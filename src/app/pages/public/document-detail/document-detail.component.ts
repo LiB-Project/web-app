@@ -8,6 +8,7 @@ import { Frequency } from 'src/app/core/model/frequency.model';
 import { RecomendacaoService } from 'src/app/core/services/recomendacao.service';
 import { Recomendacao } from 'src/app/core/model/recomendacao.model';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {EstatisticaService} from '../../../core/services/estatistica.service';
 
 @Component({
   selector: 'document-detail',
@@ -27,18 +28,19 @@ export class DocumentDetailComponent implements OnInit, OnDestroy{
               private element: ElementRef,
               private sanitizer: DomSanitizer,
               private documentoService: DocumentoService,
+              private estatisticaService: EstatisticaService,
               private recomendacaoService: RecomendacaoService,
               private analysisService: AnalysisService) {
   }
 
   ngOnInit() {
-    // ($(this.element.nativeElement) as any).find('.collapsible').collapsible();
     this.subscriptions.push(this.route.paramMap.subscribe(params => {
       this.subscriptions.push(
         this.documentoService.getById(params.get('documentId')).subscribe(
           data => {
             this.document = data.body;
             this.carregarRecomendacoes();
+            this.countAcesso(this.document.id);
           }, err => {
 
           }
@@ -54,6 +56,12 @@ export class DocumentDetailComponent implements OnInit, OnDestroy{
         )
       );
     }));
+  }
+
+  countAcesso(idDocument: string): void {
+    this.subscriptions.push(
+      this.estatisticaService.countAcesso(idDocument).subscribe()
+    );
   }
 
   ngOnDestroy(): void {

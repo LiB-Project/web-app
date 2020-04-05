@@ -14,7 +14,19 @@ const routes: Routes = [
     },
     children: [
       { path: '' , component: BuscaComponent, data: {pageName: 'Página inicial'} },
-      { path: 'document/:documentId', component: DocumentDetailComponent },
+      {
+        path: '',
+        data: { pageName: 'Pesquisa' },
+        children: [
+          {
+            path: 'document/:documentId',
+            component: DocumentDetailComponent,
+            data: {
+              pageName: 'Visualização trabalho'
+            }
+          }
+        ]
+      },
       { path: 'sobre', component: SobreComponent, data: {pageName: 'Sobre'} },
       {
         path: 'estatisticas',
