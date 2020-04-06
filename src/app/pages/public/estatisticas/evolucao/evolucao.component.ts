@@ -49,6 +49,7 @@ export class EvolucaoComponent implements OnInit, OnDestroy {
       this.estatisticaService.listarAnoDeDocumentos()
         .subscribe(response => {
           this.anoList = response.body;
+          console.log("ANOS DOS DOCUMENTOS ", this.anoList);
           this.definirAnosSelecionados();
           this.carregarLevantamento();
         })
