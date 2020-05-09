@@ -15,7 +15,7 @@ export class OrientadorService {
   constructor(private http: HttpClient) { }
 
   listarTodos(): Observable<HttpResponse<Orientador[]>>{
-    return this.http.get<Orientador[]>(this.URL_RESOURCE, { observe: 'response' });
+    return this.http.get<Orientador[]>(`${this.URL_RESOURCE}/all`, { observe: 'response' });
   }
 
   listar(page: number, size: number): Observable<HttpResponse<Orientador[]>>{

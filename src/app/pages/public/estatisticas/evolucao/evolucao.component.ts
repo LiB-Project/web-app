@@ -24,6 +24,7 @@ export class EvolucaoComponent implements OnInit, OnDestroy {
   cursoList: Curso[] = [];
   cursoListFiltered: Curso[] = [];
   levantamentoList: any[] = [];
+  areaEstatisticaList: any[] = [];
 
   formGraficoLevantamento: FormGroup = new FormGroup({
     anoInferior: new FormControl('', Validators.required),
@@ -49,7 +50,7 @@ export class EvolucaoComponent implements OnInit, OnDestroy {
       this.estatisticaService.listarAnoDeDocumentos()
         .subscribe(response => {
           this.anoList = response.body;
-          console.log("ANOS DOS DOCUMENTOS ", this.anoList);
+          console.log('ANOS DOS DOCUMENTOS ', this.anoList);
           this.definirAnosSelecionados();
           this.carregarLevantamento();
         })
@@ -124,11 +125,71 @@ export class EvolucaoComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.estatisticaService.carregarLevantamento(anoInferior, anoSuperior, curso)
         .subscribe(response => {
-          this.levantamentoList = response.body;
-          console.log(this.levantamentoList);
+          this.levantamentoList = response.body.levantamentoList;
+          this.areaEstatisticaList = response.body.areaEstatisticaList;
           this.preencherGrafico();
+          this.preencherGraficoDeAgrupamentoPorAreas();
         })
     );
+  }
+
+  preencherGraficoDeAgrupamentoPorAreas(): void {
+    const seriesMap = [];
+    this.areaEstatisticaList.forEach(dado => {
+      seriesMap.push({
+        name: dado.areaBasica as string,
+        data: dado.subAreaQuantidadeList.map(item =>
+          ({name: item.subArea.nome as string, value: item.quantidade as number}))
+      });
+    });
+
+    Highcharts.chart('container-grafico-area', {
+      chart: {
+        type: 'packedbubble',
+        backgroundColor: ''
+      },
+      tooltip: {
+        useHTML: true,
+        pointFormat: '<b>{point.name}:</b> {point.value}'
+      },
+      plotOptions: {
+        packedbubble: {
+          minSize: 30,
+          maxSize: 140,
+          dataLabels: {
+            enabled: true,
+            format: '{point.name}'
+          },
+        }
+      },
+      legend: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        itemStyle: {
+          color: '#E0E0E3'
+        },
+        itemHoverStyle: {
+          color: '#FFF'
+        },
+        itemHiddenStyle: {
+          color: '#606063'
+        },
+        title: {
+          style: {
+            fontSize: '18pt',
+            color: '#C0C0C0'
+          }
+        }
+      },
+      title: {
+        style: {
+          color: 'black',
+          fontSize: '16pt',
+          fontWeight: 'bold'
+        },
+        text: 'Trabalhos agrupados por área de conhecimento'
+      },
+      series: seriesMap
+    });
   }
 
   filtrarCursos(nivelEscolhido: NivelCurso): void {

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {EvolucaoComponent} from './evolucao/evolucao.component';
 import {AreasComponent} from './areas/areas.component';
+import {OrientadoresComponent} from './orientadores/orientadores.component';
 
 const routes: Routes = [
     {
@@ -17,6 +18,13 @@ const routes: Routes = [
       component: AreasComponent,
       data: {
         pageName: 'Área de conhecimento'
+      }
+    },
+    {
+      path: 'orientador',
+      component: OrientadoresComponent,
+      data: {
+        pageName: 'Orientadores'
       }
     }
 ];

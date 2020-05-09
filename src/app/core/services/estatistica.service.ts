@@ -17,12 +17,12 @@ export class EstatisticaService {
       {observe: 'response'});
   }
 
-  carregarLevantamento(anoInferior: number, anoSuperior: number, cursoId: string): Observable<HttpResponse<any[]>> {
+  carregarLevantamento(anoInferior: number, anoSuperior: number, cursoId: string): Observable<HttpResponse<any>> {
     let httpParams = new HttpParams();
     httpParams = httpParams.append('anoInferior', anoInferior.toString());
     httpParams = httpParams.append('anoSuperior', anoSuperior.toString());
     httpParams = httpParams.append('cursoId', cursoId.toString());
-    return this.http.get<any[]>(`${environment.apiBase + environment.estatisticaPath}/levantamento`,
+    return this.http.get<any[]>(`${environment.apiBase + environment.estatisticaPath}/evolucao`,
       {observe: 'response', params: httpParams});
   }
 
@@ -35,6 +35,13 @@ export class EstatisticaService {
     return this.http.get<any[]>(`${environment.apiBase + environment.estatisticaPath}/area`,
       { observe: 'response', params: httpParams});
 
+  }
+
+  carregarPorOrientador(orientador: string): Observable<HttpResponse<any[]>>{
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append('id', orientador);
+    return this.http.get<any[]>(`${environment.apiBase + environment.estatisticaPath}/orientador`,
+      { observe: 'response', params: httpParams});
   }
 
   carregarQuantidadeAcessos(): Observable<HttpResponse<DocumentoAcessos[]>> {

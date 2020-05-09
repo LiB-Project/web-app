@@ -1,1 +1,24 @@
-<p>orientadores works!</p>
+<div class="row" style="margin-top:50px!important">
+  <form class="col s12 m12 l12" [formGroup]="formGroup" (ngSubmit)="carregarDados()">
+    <div class="row valign-wrapper grey darken-2 white-text" style="padding: 1%">
+      <div class="col s1">
+        <b>Orientador</b>
+      </div>
+      <mat-form-field class="col s6">
+        <input type="text" placeholder="Selecione o orientador" matInput formControlName="orientador" [matAutocomplete]="completeOrientador">
+        <mat-autocomplete #completeOrientador="matAutocomplete" [displayWith]="displayOrientador">
+          <mat-option *ngFor="let orientador of filteredOrientadores | async" [value]="orientador">
+            {{orientador.nome}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button type="submit" class="waves-effect waves-light btn white black-text col s2 offset-s1">
+        Visualizar
+      </button>
+    </div>
+  </form>
+
+  <div class="col s12" id="container-grafico">
+
+  </div>
+</div>
