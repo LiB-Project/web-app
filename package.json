@@ -31,7 +31,7 @@
     "highcharts": "^7.2.0",
     "jquery": "^2.2.4",
     "materialize-css": "^0.100.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ng5-slider": "^1.2.4",
     "ngx-alerts": "^4.0.0",
     "ngx-material-file-input": "^2.0.0",
